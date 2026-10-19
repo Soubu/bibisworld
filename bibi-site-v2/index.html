@@ -401,8 +401,22 @@ body.stickering .stk.float{animation:none}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* standalone: shared features hidden */
-.gbmini,#sec-board,[data-jump="sec-board"],.box:has(#counter),.actions:has(#followBtn),#followers,[data-owner],#starterNote{display:none!important}
+.spotify{background:#362f22;color:#eff4bd;border-color:#23361a}
+.spotify .bar{background:linear-gradient(90deg,#23361a,#556f30);color:#eff4bd}
+.spotify .np{background:#4a4130}
+.spotify li:hover,.spotify li.cur{background:#4a4130}
+.spotify li.cur{color:#a2b447}
+.spotify .art{width:26px;height:36px;border-radius:2px;box-shadow:inset -3px 0 0 rgba(0,0,0,.25)}
+.spotify li{grid-template-columns:18px 26px minmax(0,1fr) auto}
+.spotify .ln{color:#c9c2a6;font-size:12px}
+.nocover{font-size:15px!important;font-family:var(--f-pixel);font-weight:700;letter-spacing:.05em;opacity:.85}
+.cover-art{aspect-ratio:3/4!important;width:78%!important;margin:0 auto!important}
+
+.gbmini,#sec-board,[data-jump="sec-board"],.box:has(#counter),.actions:has(#followBtn),#followers,#starterNote{display:none!important}
+.ownerbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:2px dashed var(--line);background:var(--card-2);padding:6px 12px;margin-bottom:12px}
+.ownerbar b{font-family:var(--f-pixel);font-size:19px;letter-spacing:.05em;color:var(--ink-strong)}
+.ownerbtns{display:flex;gap:6px;flex-wrap:wrap}
+.ownerlink{background:none;border:0;color:var(--muted);cursor:pointer;font:inherit;text-decoration:underline;padding:0}
 .r5{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
 @media (max-width:900px){.r5{grid-template-columns:minmax(0,1fr)!important}}
 </style></head><body>
@@ -421,6 +435,7 @@ body.stickering .stk.float{animation:none}
   <symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h11l2 2v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8 8h8M8 12h8M8 16h5"/></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4zM12 8.5c-1-1.6-3.5-.8-3 1 .3 1 3 2.8 3 2.8s2.7-1.8 3-2.8c.5-1.8-2-2.6-3-1z"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 14l8-4M9 9l2 2M13 13l2 2" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-books" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 4h4v16H4zM10 4h4v16h-4zM16.5 5.2l3.6-1 3 15.4-3.6 1z"/><path stroke="currentColor" stroke-width="2" d="M4 8h4M10 16h4"/></symbol>
   <symbol id="i-music" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
   <symbol id="i-pic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3 17 5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="9" r="1.6" fill="currentColor"/></symbol>
 </svg>
@@ -440,17 +455,18 @@ body.stickering .stk.float{animation:none}
         <button class="navbtn" type="button" data-jump="sec-about"><svg><use href="#i-user"/></svg>About</button>
         <button class="navbtn" type="button" data-jump="sec-diary"><svg><use href="#i-book"/></svg>Diary</button>
         <button class="navbtn" type="button" data-jump="sec-board"><svg><use href="#i-chat"/></svg>Guestbook</button>
-        <button class="navbtn" type="button" data-jump="sec-playlist"><svg><use href="#i-music"/></svg>Music</button>
+        <button class="navbtn" type="button" data-jump="sec-playlist"><svg><use href="#i-books"/></svg>Books</button>
         <button class="navbtn" type="button" data-jump="sec-links"><svg><use href="#i-link"/></svg>Linkz</button>
         <button class="navbtn tab2" type="button" data-view="reminders"><svg><use href="#i-bell"/></svg>Reminders</button>
       </nav>
     </header>
 
     <!-- ===================== HOME ===================== -->
+    <div class="ownerbar" data-owner><b>owner mode</b><span class="ownerbtns"><button class="btn primary" type="button" data-act="edit">Edit my page</button><button class="btn primary" type="button" data-act="stickers">Sticker mode</button><button class="btn" type="button" id="ownerBar2">Log out</button></span></div>
     <div id="view-home" class="home">
       <div class="stk-layer" id="stkLayer"></div>
       <div id="starterNote" class="starter" hidden style="margin-bottom:14px">
-        <span>This is your starter page. Make it yours: add your name, bio, songs and photos.</span>
+        <span>This is your starter page. Make it yours: add your name, bio, books and photos.</span>
         <span class="actions"><button class="btn primary" type="button" data-act="edit">✎ Edit my page</button><button class="btn" type="button" data-act="stickers">Sticker mode</button></span>
       </div>
       <div class="hgrid">
@@ -462,7 +478,7 @@ body.stickering .stk.float{animation:none}
               <li><button type="button" data-jump="sec-about">about me</button></li>
               <li><button type="button" data-jump="sec-bio">my bio</button></li>
               <li><button type="button" data-jump="sec-gallery">photo album</button></li>
-              <li><button type="button" data-jump="sec-playlist">on repeat</button></li>
+              <li><button type="button" data-jump="sec-playlist">bookshelf</button></li>
               <li><button type="button" data-jump="sec-diary">diary</button></li>
               <li><button type="button" data-jump="sec-links">cool links</button></li>
               <li><button type="button" data-jump="sec-board">guestbook</button></li>
@@ -514,14 +530,14 @@ body.stickering .stk.float{animation:none}
             </div>
             <div class="right">
               <section class="win npw">
-                <div class="titlebar"><span>NOW PLAYING</span><span class="wbtns" aria-hidden="true"><i>_</i><i>×</i></span></div>
+                <div class="titlebar"><span>NOW READING</span><span class="wbtns" aria-hidden="true"><i>_</i><i>×</i></span></div>
                 <div class="body" id="npMini">
-                  <figure class="cover-art" id="npCover"><img id="npCoverImg" alt="" hidden><span id="npCoverEmpty" aria-hidden="true">♪</span></figure>
+                  <figure class="cover-art" id="npCover"><img id="npCoverImg" alt="" hidden><span id="npCoverEmpty" aria-hidden="true" class="nocover">no cover yet</span></figure>
                   <div class="song" id="npMiniSong"></div>
-                  <button class="btn primary" type="button" id="npCoverBtn" data-owner style="align-self:flex-start">＋ add a pic</button>
+                  <button class="btn primary" type="button" id="npCoverBtn" data-owner style="align-self:flex-start">＋ add a cover</button>
                   <input type="file" id="npCoverIn" class="sr" accept="image/*">
-                  <div class="ctl"><button type="button" id="npMiniPrev" aria-label="Previous song">«</button><button type="button" id="npMiniPlay" aria-label="Play or pause">►</button><button type="button" id="npMiniNext" aria-label="Next song">»</button>
-                  <button class="btn" type="button" data-jump="sec-playlist" style="margin-left:auto">playlist ♪</button></div>
+                  <div class="ctl"><button type="button" id="npMiniPrev" aria-label="Previous book">«</button><button type="button" id="npMiniPlay" aria-label="Play or pause" hidden>►</button><button type="button" id="npMiniNext" aria-label="Next song">»</button>
+                  <button class="btn" type="button" data-jump="sec-playlist" style="margin-left:auto">bookshelf</button></div>
                 </div>
               </section>
               <section class="box gbmini">
@@ -588,16 +604,16 @@ body.stickering .stk.float{animation:none}
               </div>
             </section>
             <section class="spotify" id="sec-playlist">
-              <div class="bar"><span><i aria-hidden="true"></i>On repeat · spotify</span><a class="spbtn" id="spLink" href="https://open.spotify.com" target="_blank" rel="noopener">open ↗</a></div>
+              <div class="bar"><span>My bookshelf</span><a class="spbtn" id="spLink" href="https://www.goodreads.com" target="_blank" rel="noopener">goodreads ↗</a></div>
               <div class="in">
                 <div class="np" id="np">
-                  <div class="song"><span id="npSong"></span><span class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b></span></div>
+                  <div class="song"><span class="label" style="opacity:.75">currently reading</span><br><span id="npSong"></span></div>
                   <div class="ctl">
-                    <button type="button" id="npPrev" aria-label="Previous song">«</button>
-                    <button type="button" id="npPlay" aria-label="Play">►</button>
-                    <button type="button" id="npNext" aria-label="Next song">»</button>
-                    <div class="prog"><i id="npBar"></i></div>
-                    <span class="mono" id="lcdTime" style="font-size:12px">00:00</span>
+                    <button type="button" id="npPrev" aria-label="Previous book">«</button>
+                    <button type="button" id="npPlay" aria-label="Play" hidden>►</button>
+                    <button type="button" id="npNext" aria-label="Next book">»</button>
+                    <div class="prog" hidden><i id="npBar"></i></div>
+                    <span class="mono" id="lcdTime" hidden>00:00</span>
                   </div>
                 </div>
                 <ol id="pPlaylist"></ol>
@@ -631,7 +647,7 @@ body.stickering .stk.float{animation:none}
             </section>
           </div>
 
-          <footer class="foot"><span>© 2026 <span id="footName">username</span></span><span>best viewed in 800x600</span><span>made with &lt;3 and moss</span></footer>
+          <footer class="foot"><span>© 2026 <span id="footName">username</span></span><span>best viewed in 800x600</span><span>made with &lt;3 and moss</span><span><button type="button" class="ownerlink" id="ownerBtn">owner</button></span></footer>
         </div>
       </div>
     </div>
@@ -1466,6 +1482,57 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const pad = n => String(n).padStart(2, "0");
 const ls = { get(k,f){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }catch{ return f; } }, set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{} } };
 const clone = o => JSON.parse(JSON.stringify(o));
+const GH = { owner:"Soubu", repo:"bibisworld", dir:"bibi-site-v2/", branch:"main", token: ls.get("gh.token", "") };
+const ghApi = p => `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${p}`;
+const ghHead = () => ({ "Authorization": "Bearer " + GH.token, "Accept": "application/vnd.github+json" });
+const b64enc = str => { const b = new TextEncoder().encode(str); let out = ""; for (let i = 0; i < b.length; i += 0x8000) out += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(out); };
+const b64dec = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g, "")), c => c.charCodeAt(0)));
+async function ghGet(path){ const r = await fetch(ghApi(path) + "?ref=" + GH.branch + "&t=" + Date.now(), {headers: ghHead(), cache:"no-store"}); if (!r.ok) throw new Error("get " + r.status); return r.json(); }
+async function ghPut(path, b64, message, sha){ const r = await fetch(ghApi(path), {method:"PUT", headers: ghHead(), body: JSON.stringify({message, content: b64, branch: GH.branch, ...(sha ? {sha} : {})})}); if (!r.ok) throw new Error("put " + r.status); return r.json(); }
+async function ghImage(file, max, type){
+  const dataUrl = await shrink(file, Math.max(max, 900), type);
+  const name = `up-${Date.now().toString(36)}${Math.random().toString(36).slice(2,6)}.${type === "image/png" ? "png" : "jpg"}`;
+  await ghPut(GH.dir + name, dataUrl.split(",")[1], "Add picture");
+  return name;
+}
+let ghBusy = Promise.resolve(), ghTimer = null;
+function ghQueue(){
+  clearTimeout(ghTimer);
+  ghTimer = setTimeout(() => { ghBusy = ghBusy.then(ghCommit).catch(() => {}); }, 700);
+}
+async function ghCommit(){
+  try{
+    const f = await ghGet(GH.dir + "index.html");
+    const html = b64dec(f.content);
+    const data = JSON.stringify(P).replace(/</g, "\\u003c");
+    const M1 = "/*BA" + "KED*/", M2 = "/*E" + "ND*/";
+    const a = html.indexOf(M1), z = html.indexOf(M2, a);
+    if (a < 0 || z < 0) throw new Error("marker");
+    const next = html.slice(0, a) + M1 + "Object.assign(DEFAULT, " + data + ");" + html.slice(z);
+    await ghPut(GH.dir + "index.html", b64enc(next), "Update my page", f.sha);
+    note("Saved", "Your site updates for everyone in about a minute.");
+  }catch(e){ note("Couldn't save to GitHub", String(e.message).startsWith("put 409") ? "Two saves happened at once. Try that change again." : "Check your owner key under owner at the bottom of the page."); }
+}
+function openOwner(){
+  const root = $("#homeModal");
+  root.innerHTML = `<div class="overlay"><form class="modal modalf" id="ownerForm" role="dialog" aria-modal="true" aria-labelledby="oh">
+    <div class="bar"><h2 id="oh" style="font-size:20px">Owner login</h2><span class="sub">Paste your GitHub key to edit this page.</span></div>
+    <div class="scroll">
+      <div class="field"><label for="ghTok">GitHub key</label><input id="ghTok" type="password" autocomplete="off" value="${esc(GH.token)}" placeholder="github_pat_..."></div>
+      <p class="hint">Your key is saved only in this browser. Anyone with it can change your site, so don't share it.</p>
+      <p class="hint" id="ownMsg"></p>
+    </div>
+    <footer>${GH.token ? `<button class="btn" type="button" id="ownOut">Log out</button>` : ""}<button class="btn" type="button" id="ownCancel">Cancel</button><button class="btn primary" type="submit">Log in</button></footer>
+  </form></div>`;
+  $("#ownCancel").onclick = () => root.innerHTML = "";
+  $("#ownOut")?.addEventListener("click", () => { ls.set("gh.token", ""); try{ localStorage.removeItem("daybell.profile"); }catch{} location.reload(); });
+  $("#ownerForm").addEventListener("submit", async e => {
+    e.preventDefault(); const t = $("#ghTok").value.trim(); if (!t) return;
+    $("#ownMsg").textContent = "Checking…"; GH.token = t;
+    try{ await ghGet(GH.dir + "index.html"); ls.set("gh.token", t); $("#ownMsg").textContent = "Logged in."; setTimeout(() => location.reload(), 500); }
+    catch{ GH.token = ""; $("#ownMsg").textContent = "That key didn't work. Check it has Contents: Read and write access to the bibisworld repo."; }
+  });
+}
 const todayStr = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
 
 /* ---------------- stickers (all original drawings) ---------------- */
@@ -1536,12 +1603,12 @@ const DEFAULT = {
   status:"listening to the rain", mood:"content",
   about:"hi! i love rainy days, foxes, mossy forests\nand cozy playlists. pull up a mushroom\nand stay a while",
   loves:["rainy days","foxes & frogs","mossy forests","tea + books","old web layouts","painting"],
-  playlist:[{t:"deftones - change (in the house of flies)",l:"4:59"},{t:"the cure - pictures of you",l:"4:48"},{t:"mazzy star - fade into you",l:"4:55"},{t:"crystal castles - crimewave",l:"4:15"},{t:"evanescence - my immortal",l:"4:24"},{t:"bauhaus - bela lugosi's dead",l:"9:36"}],
+  playlist:[{t:"The Secret Garden - Frances Hodgson Burnett",l:"★★★★★"},{t:"Howl's Moving Castle - Diana Wynne Jones",l:"★★★★★"},{t:"Piranesi - Susanna Clarke",l:"reading"},{t:"The Hobbit - J.R.R. Tolkien",l:"★★★★"},{t:"Anne of Green Gables - L.M. Montgomery",l:"★★★★"},{t:"The Wind in the Willows - Kenneth Grahame",l:"up next"}],
   diary:{date:"", title:"rainy day in the garden", body:"watered nothing today because the sky did it for me. the frogs are very happy."},
   links:[{label:"neocities.org",url:"https://neocities.org"},{label:"spacehey.com",url:"https://spacehey.com"},{label:"pinterest.com",url:"https://www.pinterest.com"},{label:"tumblr.com",url:"https://www.tumblr.com"}],
   photos:[], avatar:"", stickers:null
 };
-Object.assign(DEFAULT, {"about": "hi! i love rainy days, foxes, mossy forests\nand cozy playlists. pull up a mushroom\nand stay a while ✿", "avatar": "", "bio": [{"k": "name", "v": "your name"}, {"k": "birthday", "v": "june 21"}, {"k": "star sign", "v": "cancer"}, {"k": "from", "v": "somewhere green"}, {"k": "mbti", "v": "infp"}, {"k": "fav color", "v": "moss green"}], "diary": {"body": "watered nothing today because the sky did it for me. the frogs are very happy.", "date": "2026-10-19", "title": "rainy day in the garden"}, "handle": "bibi", "heart": "fragile inside", "hello": "You have reached my little corner of the forest.", "hobbies": ["painting", "gardening", "reading", "thrifting", "journaling", "baking"], "important": "be kind to every frog you meet. and drink water!", "links": [{"label": "neocities.org", "url": "https://neocities.org"}, {"label": "spacehey.com", "url": "https://spacehey.com"}, {"label": "pinterest.com", "url": "https://www.pinterest.com"}, {"label": "tumblr.com", "url": "https://www.tumblr.com"}], "loves": ["rainy days", "foxes & frogs", "mossy forests", "tea + books", "old web layouts", "painting"], "mood": "shocked", "name": "Shima", "photos": [], "playlist": [{"l": "4:59", "t": "deftones - change (in the house of flies)"}, {"l": "4:48", "t": "the cure - pictures of you"}, {"l": "4:55", "t": "mazzy star - fade into you"}, {"l": "4:15", "t": "crystal castles - crimewave"}, {"l": "4:24", "t": "evanescence - my immortal"}, {"l": "9:36", "t": "bauhaus - bela lugosi's dead"}], "pronouns": "she/her", "spotify": "", "status": "listening to the rain", "stickers": [{"k": "s:butterfly", "r": 14, "s": 0.6, "x": 98, "y": 31}, {"k": "s:palestar", "r": 1, "s": 1, "x": 34, "y": 47.4}, {"k": "s:spiralstar", "r": -2, "s": 1, "x": 67.1, "y": 51}], "tagline": "a mossy little corner of the internet, full of frogs and foxes", "word": "angel?"});
+/*BAKED*/Object.assign(DEFAULT, {"about": "hi! i love rainy days, foxes, mossy forests\nand cozy playlists. pull up a mushroom\nand stay a while ✿", "avatar": "", "bio": [{"k": "name", "v": "your name"}, {"k": "birthday", "v": "june 21"}, {"k": "star sign", "v": "cancer"}, {"k": "from", "v": "somewhere green"}, {"k": "mbti", "v": "infp"}, {"k": "fav color", "v": "moss green"}], "diary": {"body": "watered nothing today because the sky did it for me. the frogs are very happy.", "date": "2026-10-19", "title": "rainy day in the garden"}, "handle": "bibi", "heart": "fragile inside", "hello": "You have reached my little corner of the forest.", "hobbies": ["painting", "gardening", "reading", "thrifting", "journaling", "baking"], "important": "be kind to every frog you meet. and drink water!", "links": [{"label": "neocities.org", "url": "https://neocities.org"}, {"label": "spacehey.com", "url": "https://spacehey.com"}, {"label": "pinterest.com", "url": "https://www.pinterest.com"}, {"label": "tumblr.com", "url": "https://www.tumblr.com"}], "loves": ["rainy days", "foxes & frogs", "mossy forests", "tea + books", "old web layouts", "painting"], "mood": "shocked", "name": "Shima", "photos": [], "playlist": [{"l": "★★★★★", "t": "The Secret Garden - Frances Hodgson Burnett"}, {"l": "★★★★★", "t": "Howl's Moving Castle - Diana Wynne Jones"}, {"l": "reading", "t": "Piranesi - Susanna Clarke"}, {"l": "★★★★", "t": "The Hobbit - J.R.R. Tolkien"}, {"l": "★★★★", "t": "Anne of Green Gables - L.M. Montgomery"}, {"l": "up next", "t": "The Wind in the Willows - Kenneth Grahame"}], "pronouns": "she/her", "spotify": "", "status": "listening to the rain", "stickers": [{"k": "s:butterfly", "r": 14, "s": 0.6, "x": 98, "y": 31}, {"k": "s:palestar", "r": 1, "s": 1, "x": 34, "y": 47.4}, {"k": "s:spiralstar", "r": -2, "s": 1, "x": 67.1, "y": 51}], "tagline": "a mossy little corner of the internet, full of frogs and foxes", "word": "angel?", "_t": 1792402709586});/*END*/
 let P = clone(DEFAULT), saved = true, mode = "loading";
 let db = null, user = null, assets = null, canEdit = false, canWrite = null;
 let profRef = null;
@@ -1570,7 +1637,7 @@ function renderProfile(){
   $("#pMood").hidden = canEdit;
   $("#pBio").innerHTML = (P.bio||[]).map(b => `<dt>${esc(b.k)}</dt><dd>${esc(b.v)}</dd>`).join("") || `<dd class="muted">nothing here yet</dd>`;
   $("#pHobbies").innerHTML = (P.hobbies||[]).map(x => `<li>${esc(x)}</li>`).join("");
-  const sp = safeUrl(P.spotify); $("#spLink").href = sp || "https://open.spotify.com"; $("#spLink").textContent = sp ? "open my spotify ↗" : "open spotify ↗";
+  const sp = safeUrl(P.spotify); $("#spLink").href = sp || "https://www.goodreads.com"; $("#spLink").textContent = sp ? "my reading list ↗" : "goodreads ↗";
   $("#pLinks").innerHTML = (P.links||[]).map(l => { const u = safeUrl(l.url); return u ? `<li><a class="pill" href="${esc(u)}" target="_blank" rel="noopener">${esc(l.label || u)}</a></li>` : ""; }).join("") || `<li class="info">no links yet</li>`;
   if (!MOODS[P.mood]) P.mood = "content"; const sel = $("#moodSel"); const opts = Object.keys(MOODS);
   sel.innerHTML = opts.map(m => `<option ${m===P.mood?"selected":""}>${esc(m)}</option>`).join("");
@@ -1591,12 +1658,12 @@ function renderPlaylist(){
   const pl = P.playlist || []; if (cur >= pl.length) cur = 0;
   $("#pPlaylist").innerHTML = pl.map((s,i) => `<li class="${i===cur?"cur":""}" data-i="${i}"><span class="art" style="--h:${(i*67+100)%360}${s.cover ? `;background:url('${esc(blobUrl(s.cover))}') center/cover` : ""}"></span><span class="tt">${esc(s.t)}</span><span class="ln">${esc(s.l||"")}</span></li>`).join("");
   const song = pl[cur];
-  $("#npSong").textContent = song ? song.t : "add songs to your playlist";
-  $("#lcdSong").textContent = song ? song.t : ""; $("#npMiniSong").textContent = song ? "♪ " + song.t : "add songs to your playlist";
+  $("#npSong").textContent = song ? song.t : "add books to your shelf";
+  $("#lcdSong").textContent = song ? song.t : ""; $("#npMiniSong").textContent = song ? song.t : "add books to your shelf";
   const ci = $("#npCoverImg");
   if (song && song.cover){ ci.src = blobUrl(song.cover); ci.alt = `Picture for ${song.t}`; ci.hidden = false; $("#npCoverEmpty").hidden = true; }
   else { ci.hidden = true; $("#npCoverEmpty").hidden = false; }
-  $("#npCoverBtn").textContent = song && song.cover ? "change pic" : "＋ add a pic";
+  $("#npCoverBtn").textContent = song && song.cover ? "change cover" : "＋ add a cover";
   updateProg();
 }
 function updateProg(){
@@ -1623,7 +1690,7 @@ async function saveProfile(patch){
     try{ await profRef.set(clone(P)); saved = true; return true; }
     catch(e){ note("Couldn't save your page", e?.code === "quota_exceeded" ? "Your page is full. Remove a few stickers or photos." : "Only the page owner or an editor can change it."); return false; }
   }
-  if (mode === "device"){ ls.set("daybell.profile", P); saved = true; renderProfile(); return true; }
+  if (mode === "device"){ if (!GH.token) return false; P._t = Date.now(); ls.set("daybell.profile", P); saved = true; renderProfile(); ghQueue(); return true; }
   return false;
 }
 function note(t, s){ const box = document.createElement("div"); box.className = "toast info"; box.innerHTML = `<div class="tt"></div><div class="ts"></div>`; box.querySelector(".tt").textContent = t; box.querySelector(".ts").textContent = s; $("#toasts").append(box); setTimeout(() => box.remove(), 4500); }
@@ -1679,7 +1746,7 @@ $("#ownIn").addEventListener("change", async () => {
   const f = $("#ownIn").files[0]; $("#ownIn").value = ""; if (!f) return;
   try{
     let id;
-    if (mode === "device") id = await shrink(f, 300, "image/png");
+    if (mode === "device") id = await ghImage(f, 300, "image/png");
     else if (assets){ id = (await assets.upload(f)).id; }
     else { note("Can't upload here", "Uploading isn't available here."); return; }
     const r = layer.getBoundingClientRect();
@@ -1725,8 +1792,8 @@ function openEdit(){
       ${field("e-bio","Bio (one per line, like  birthday: june 21)",(d.bio||[]).map(b => `${b.k}: ${b.v}`).join("\n"),6)}
       ${field("e-hob","Hobbies (one per line)",(d.hobbies||[]).join("\n"),4)}
       ${field("e-loves","Info ! (one per line)",(d.loves||[]).join("\n"),6)}
-      ${field("e-spot","Your Spotify link (profile or playlist)",d.spotify||"")}
-      ${field("e-play","On repeat songs (one per line: artist - song | 3:45)",(d.playlist||[]).map(s => s.t + (s.l ? " | " + s.l : "")).join("\n"),7)}
+      ${field("e-spot","Your Goodreads or reading-list link",d.spotify||"")}
+      ${field("e-play","Bookshelf (one per line: title - author | rating or note)",(d.playlist||[]).map(s => s.t + (s.l ? " | " + s.l : "")).join("\n"),7)}
       <div class="row2">${field("e-dtitle","Diary title",d.diary?.title||"")}<div class="field"><label for="e-ddate">Diary date</label><input type="date" id="e-ddate" value="${esc(d.diary?.date||todayStr())}"></div></div>
       ${field("e-dbody","Diary entry",d.diary?.body||"",5)}
       ${field("e-imp","! Important text !",d.important||"",3)}
@@ -1758,7 +1825,7 @@ function openEdit(){
       if (target === "ph" && d.photos.length >= 30){ msg.textContent = "The album holds 30 photos. Remove one to add another."; break; }
       try{
         let id;
-        if (mode === "device"){ id = await shrink(f, 360); }
+        if (mode === "device"){ id = await ghImage(f, 360); }
         else { const res = await assets.upload(f); id = res.id; pendingUploads.push(id); }
         if (target === "av") d.avatar = id; else d.photos.push(id);
         drawThumbs(); msg.textContent = "Added ";
@@ -1775,7 +1842,7 @@ function openEdit(){
     const next = {
       name:v("e-name"), tagline:v("e-tag").slice(0,160), hello:v("e-hello").slice(0,160), handle:v("e-handle").replace(/^@/,"").replace(/\s+/g,"").slice(0,30), pronouns:v("e-pron").slice(0,30), important:v("e-imp").slice(0,400), spotify:v("e-spot").slice(0,300), hobbies:lines("e-hob").slice(0,16).map(x => x.slice(0,40)), bio:lines("e-bio").slice(0,12).map(x => { const i = x.indexOf(":"); return i > 0 ? {k:x.slice(0,i).trim().slice(0,30), v:x.slice(i+1).trim().slice(0,80)} : {k:x.slice(0,30), v:""}; }), status:v("e-status"),
       about:v("e-about").slice(0,1200), loves:lines("e-loves").slice(0,15).map(x => x.slice(0,60)),
-      playlist:lines("e-play").slice(0,20).map(x => { const [t,l] = x.split("|").map(y => y.trim()); const old = (P.playlist||[]).find(s => s.t === t.slice(0,90)); return {t:t.slice(0,90), l:/^\d{1,2}:\d{2}$/.test(l||"") ? l : "", ...(old && old.cover ? {cover: old.cover} : {})}; }),
+      playlist:lines("e-play").slice(0,20).map(x => { const [t,l] = x.split("|").map(y => y.trim()); const old = (P.playlist||[]).find(s => s.t === t.slice(0,90)); return {t:t.slice(0,90), l:(l||"").slice(0,20), ...(old && old.cover ? {cover: old.cover} : {})}; }),
       diary:{title:v("e-dtitle"), date:v("e-ddate"), body:v("e-dbody").slice(0,2000)},
       links:lines("e-links").slice(0,12).map(x => { const [label,url] = x.split("|").map(y => y.trim()); return url ? {label, url} : {label, url:label}; }),
       avatar:d.avatar, photos:d.photos.slice(0,30)
@@ -1826,11 +1893,11 @@ $("#npCoverIn").addEventListener("change", async () => {
   const f = $("#npCoverIn").files[0]; $("#npCoverIn").value = ""; if (!f || !(P.playlist||[])[cur]) return;
   try{
     let id;
-    if (mode === "device") id = await shrink(f, 360);
+    if (mode === "device") id = await ghImage(f, 360);
     else if (assets) id = (await assets.upload(f)).id;
     else { note("Can't upload here", "Uploading isn't available here."); return; }
     const pl = clone(P.playlist); pl[cur].cover = id;
-    if (await saveProfile({playlist: pl})){ renderPlaylist(); note("Picture added ♪", "It shows while this song is playing."); }
+    if (await saveProfile({playlist: pl})){ renderPlaylist(); note("Cover added", "It shows on this book."); }
   }catch(err){ note("That picture couldn't be uploaded", err?.code === "too_large" ? "Pick one under 20 MB." : "Try a different picture."); }
 });
 /* ---------------- photo album ---------------- */
@@ -1852,7 +1919,7 @@ $("#albIn").addEventListener("change", async () => {
   $("#albAdd").disabled = true; $("#albAdd").textContent = "uploading…";
   for (const f of files){
     if (list.length >= MAX_PHOTOS){ note("Album is full", `It holds ${MAX_PHOTOS} photos. Delete some to add more.`); break; }
-    try{ list.push(mode === "device" ? await shrink(f, 600) : (await assets.upload(f)).id); added++; }catch{ failed++; }
+    try{ list.push(mode === "device" ? await ghImage(f, 1000) : (await assets.upload(f)).id); added++; }catch{ failed++; }
   }
   $("#albAdd").disabled = false; $("#albAdd").textContent = "＋ add photos";
   if (added && await saveProfile({photos: list})){ renderAlbum(); note(`Added ${added} photo${added>1?"s":""}`, failed ? `${failed} couldn't be uploaded.` : "They're in your album now."); }
@@ -1883,6 +1950,7 @@ function openViewer(i){
     else if (b?.dataset.v === "close" || e.target.classList.contains("overlay")) root.innerHTML = "";
   });
 }
+$("#ownerBtn").onclick = openOwner; $("#ownerBar2").onclick = () => { ls.set("gh.token", ""); try{ localStorage.removeItem("daybell.profile"); }catch{} location.reload(); };
 /* ---------------- follow + like ---------------- */
 let myId = null, likes = [], follows = [];
 function renderSocial(){
@@ -1957,8 +2025,8 @@ showView(location.hash === "#reminders" ? "reminders" : "home");
 
 /* ---------------- boot ---------------- */
 function device(){
-  mode = "device"; canEdit = false;
-  saved = true; P = clone(DEFAULT);
+  mode = "device"; canEdit = !!GH.token;
+  saved = true; P = clone(DEFAULT); if (GH.token){ const lp = ls.get("daybell.profile", null); if (lp && (lp._t||0) > (DEFAULT._t||0)) P = {...clone(DEFAULT), ...lp}; }
   gb = ls.get("daybell.gb", []); setCount(1); $("#onlineTxt").textContent = "online now!";
   renderProfile(); renderGB(); renderSocial();
 }
